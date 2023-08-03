@@ -1,20 +1,25 @@
 "use client";
 import SearchInput from "@/components/SearchInput/SearchInput";
 import InfoContainer from "@/components/InfoContainer/InfoContainer";
-import { findProductByLink } from "store-api-controller";
 import axios from "axios";
 import { useState } from "react";
 
 export default function Home() {
   const [product, setProduct] = useState<unknown>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSearch = async (search: string | undefined) => {
     if (!search) return;
 
+    const urlRegex = /(https?:\/\/[^\s]+)/;
+    const extractedUrl = search.match(urlRegex)?.[0];
+
+    setLoading(true);
     const { data } = await axios.get("/api/store", {
-      params: { link: search },
+      params: { link: extractedUrl },
     });
 
+    setLoading(false);
     setProduct(data);
   };
 
@@ -29,7 +34,7 @@ export default function Home() {
         }}
       >
         <SearchInput onSearch={handleSearch} />
-        <InfoContainer product={product} />
+        <InfoContainer product={product} loading={loading} />
       </div>
     </main>
   );

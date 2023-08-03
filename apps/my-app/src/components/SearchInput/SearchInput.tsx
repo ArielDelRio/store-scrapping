@@ -10,12 +10,12 @@ const SearchInput = ({ onSearch }: SearchInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <>
+    <div className="lg:w-6/12 md:w-10/12 min-h-20 flex">
       <input
         ref={inputRef}
-        className="search-input"
+        className="search-input w-full"
         type={"text"}
-        placeholder="Paste a URL or Search a Product"
+        placeholder="Paste a Shein URL to get product data"
       />
       <button
         className="search-button"
@@ -23,7 +23,7 @@ const SearchInput = ({ onSearch }: SearchInputProps) => {
       >
         Search
       </button>
-    </>
+    </div>
   );
 };
 
