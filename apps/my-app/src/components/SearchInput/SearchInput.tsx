@@ -10,7 +10,7 @@ const SearchInput = ({ onSearch }: SearchInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className="lg:w-6/12 md:w-10/12 min-h-20 flex">
+    <div className="lg:w-6/12 md:w-12/12 min-h-20 flex w-full">
       <input
         ref={inputRef}
         className="search-input w-full"

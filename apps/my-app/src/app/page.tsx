@@ -24,7 +24,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen p-24">
+    <main className="min-h-screen py-24 px-4">
       <div
         style={{
           display: "flex",

@@ -31,7 +31,7 @@ interface InfoContainerProps {
 const InfoContainer = ({ product, loading }: InfoContainerProps) => {
   return (
     <div
-      className={`lg:w-6/12 md:w-10/12 min-h-20 min-h-64 p-4 ${styles.infoContainer}`}
+      className={`lg:w-6/12 md:w-12/12 min-h-20 min-h-64 p-4 w-full ${styles.infoContainer}`}
     >
       {loading && (
         <div className="flex justify-center">
