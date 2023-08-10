@@ -3,6 +3,7 @@ import SearchInput from "@/components/SearchInput/SearchInput";
 import InfoContainer from "@/components/InfoContainer/InfoContainer";
 import axios from "axios";
 import { useState } from "react";
+import CardProduct from "@/components/CardProduct/CardProduct";
 
 export default function Home() {
   const [product, setProduct] = useState<unknown>(null);
@@ -35,6 +36,7 @@ export default function Home() {
       >
         <SearchInput onSearch={handleSearch} />
         <InfoContainer product={product} loading={loading} />
+        <CardProduct product={product} loading={loading} />
       </div>
     </main>
   );
