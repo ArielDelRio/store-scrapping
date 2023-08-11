@@ -36,7 +36,7 @@ export default function Home() {
       >
         <SearchInput onSearch={handleSearch} />
         <InfoContainer product={product} loading={loading} />
-        <CardProduct product={product} loading={loading} />
+        <CardProduct product={product} />
       </div>
     </main>
   );
