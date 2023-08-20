@@ -1,3 +1,3 @@
-import { Root as SheinProductDetail } from "./types/sheinProductDetailTypes";
-declare const findProductByLink: (link: string) => Promise<SheinProductDetail | undefined>;
+import { Product } from "./types";
+declare const findProductByLink: (link: string) => Promise<Product>;
 export { findProductByLink };

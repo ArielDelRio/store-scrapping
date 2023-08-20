@@ -1,14 +1,17 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import dotenv from "dotenv";
-import { Root as SheinProductDetail } from "./types/sheinProductDetailTypes";
+import {
+  SheinApiResponse,
+  SheinProductDetails,
+} from "./types/sheinProductDetailTypes";
 import { extractDataFromLink } from "./utils/extractDataFromLink";
-import { Params, Store } from "./types";
+import { Params, Product, Store } from "./types";
 
 dotenv.config();
 
 const getSheinProduct = async (
   goods_id: string
-): Promise<SheinProductDetail | undefined> => {
+): Promise<SheinProductDetails | never> => {
   const options: AxiosRequestConfig = {
     method: "GET",
     url: "https://unofficial-shein.p.rapidapi.com/products/detail",
@@ -19,7 +22,7 @@ const getSheinProduct = async (
   };
 
   try {
-    const response = await axios.request({
+    const { data }: AxiosResponse<SheinApiResponse> = await axios.request({
       ...options,
       params: {
         goods_id,
@@ -28,19 +31,23 @@ const getSheinProduct = async (
         currency: "USD",
       },
     });
-    return response.data;
+
+    return { ...data.info, store: "shein" };
   } catch (error) {
-    console.error(error);
+    throw new Error(error as string);
   }
 };
 
-const getDetailProduct = async (store: Store, params: Params) => {
+const getDetailProduct = async (
+  store: Store,
+  params: Params
+): Promise<Product> => {
   if (store === "shein") {
     return await getSheinProduct(params.product_id);
   }
 };
 
-const findProductByLink = async (link: string) => {
+const findProductByLink = async (link: string): Promise<Product> => {
   try {
     const { id, store } = await extractDataFromLink(link);
 
@@ -48,7 +55,7 @@ const findProductByLink = async (link: string) => {
       throw new Error("Invalid link");
     }
 
-    return await getDetailProduct(store as Store, { product_id: id });
+    return await getDetailProduct(store, { product_id: id });
   } catch (error) {
     throw new Error(error as string);
   }

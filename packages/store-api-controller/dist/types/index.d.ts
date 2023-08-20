@@ -1,6 +1,7 @@
-type Store = "shein" | "amazon";
-type Params = {
+import { SheinProductDetails } from "./sheinProductDetailTypes";
+export type Store = "shein" | "amazon";
+export type Params = {
     product_id: string;
 };
-type Domains = "api-shein.shein.com" | "us.shein.com" | "amazon.com";
-export { Store, Params, Domains };
+export type Domains = "api-shein.shein.com" | "us.shein.com" | "amazon.com";
+export type Product = SheinProductDetails | undefined;

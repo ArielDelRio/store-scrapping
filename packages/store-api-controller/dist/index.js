@@ -27,16 +27,16 @@ const getSheinProduct = (goods_id) => __awaiter(void 0, void 0, void 0, function
         },
     };
     try {
-        const response = yield axios_1.default.request(Object.assign(Object.assign({}, options), { params: {
+        const { data } = yield axios_1.default.request(Object.assign(Object.assign({}, options), { params: {
                 goods_id,
                 language: "en",
                 country: "US",
                 currency: "USD",
             } }));
-        return response.data;
+        return Object.assign(Object.assign({}, data.info), { store: "shein" });
     }
     catch (error) {
-        console.error(error);
+        throw new Error(error);
     }
 });
 const getDetailProduct = (store, params) => __awaiter(void 0, void 0, void 0, function* () {

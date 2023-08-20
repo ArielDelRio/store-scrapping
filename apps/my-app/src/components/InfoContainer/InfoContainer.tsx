@@ -1,4 +1,5 @@
 "use client";
+import { ReactNode } from "react";
 import styles from "./InfoContainer.module.css";
 import { JSONTree } from "react-json-tree";
 
@@ -24,16 +25,16 @@ const darkTheme = {
 };
 
 interface InfoContainerProps {
-  product: unknown;
   loading: boolean;
+  children: ReactNode;
 }
 
-const InfoContainer = ({ product, loading }: InfoContainerProps) => {
+const InfoContainer = ({ loading, children }: InfoContainerProps) => {
   return (
     <div
       className={`lg:w-6/12 md:w-12/12 min-h-20 min-h-64 p-4 w-full ${styles.infoContainer}`}
     >
-      {loading && (
+      {loading ? (
         <div className="flex justify-center">
           <div
             className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] text-sky-300 "
@@ -44,11 +45,8 @@ const InfoContainer = ({ product, loading }: InfoContainerProps) => {
             </span>
           </div>
         </div>
-      )}
-      {!product && !loading ? (
-        <p>Data will be displayed here</p>
       ) : (
-        <JSONTree data={product} theme={darkTheme} />
+        children
       )}
     </div>
   );

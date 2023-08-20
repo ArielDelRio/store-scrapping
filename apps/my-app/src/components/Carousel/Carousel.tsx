@@ -36,6 +36,7 @@ const Carousel = ({ children }: any) => {
         <div className="flex items-centerr justify-center gap-2">
           {children.map((_: any, i: number) => (
             <div
+              key={i}
               className={`transition-all w-3 h-3 bg-white rounded-full ${
                 val === i ? "p-2" : "bg-opacity-50"
               }`}
