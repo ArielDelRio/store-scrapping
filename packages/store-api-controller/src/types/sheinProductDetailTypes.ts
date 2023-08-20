@@ -1,10 +1,11 @@
-export interface Root {
+export interface SheinApiResponse {
   code: string;
   msg: string;
-  info: Info;
+  info: SheinProductDetails;
 }
 
-export interface Info {
+export interface SheinProductDetails {
+  store: "shein";
   isShowMall: string;
   selectedMallCode: string;
   mallInfoList: MallInfoList[];

@@ -1,9 +1,8 @@
-import axios from "axios";
-import { Domains } from "src/types";
+import { Domains, Store } from "src/types";
 
 export async function extractDataFromLink(link: string): Promise<{
   id: string | null;
-  store: string | null;
+  store: Store | null;
 }> {
   const domainRegex = /https?:\/\/([^/]+)\//g;
   const domainMatch = domainRegex.exec(link);

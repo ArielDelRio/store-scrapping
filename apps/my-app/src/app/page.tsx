@@ -3,9 +3,11 @@ import SearchInput from "@/components/SearchInput/SearchInput";
 import InfoContainer from "@/components/InfoContainer/InfoContainer";
 import axios from "axios";
 import { useState } from "react";
+import CardProduct from "@/components/CardProduct/CardProduct";
+import { Product } from "store-api-controller/dist/types";
 
 export default function Home() {
-  const [product, setProduct] = useState<unknown>(null);
+  const [product, setProduct] = useState<Product>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSearch = async (search: string | undefined) => {
@@ -15,12 +17,11 @@ export default function Home() {
     const extractedUrl = search.match(urlRegex)?.[0];
 
     setLoading(true);
-    const { data } = await axios.get("/api/store", {
+    const { data: product } = await axios.get<Product>("/api/store", {
       params: { link: extractedUrl },
     });
-
     setLoading(false);
-    setProduct(data);
+    setProduct(product);
   };
 
   return (
@@ -34,7 +35,9 @@ export default function Home() {
         }}
       >
         <SearchInput onSearch={handleSearch} />
-        <InfoContainer product={product} loading={loading} />
+        <InfoContainer loading={loading}>
+          <CardProduct product={product} />
+        </InfoContainer>
       </div>
     </main>
   );

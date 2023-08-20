@@ -37,3 +37,5 @@ yarn-error.log*
 
 
 apps/my-app/.env
+
+dist

@@ -1,0 +1,23 @@
+.card {
+    min-width: 60px;
+    min-height: 80px;
+    max-width: 60rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(28, 28, 30);
+    box-shadow: 0 0 0.4vw rgba(0, 0, 0, 0.5), 0 0 0 0.15vw transparent;
+    @media (max-width: 870px) {
+        flex-direction: column;
+    }
+}
+
+.content-img {
+    width: 50%;
+    height: 100%;
+    @media (max-width: 870px) { 
+        width: 100%;
+    }
+    
+}

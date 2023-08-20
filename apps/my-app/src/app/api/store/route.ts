@@ -10,6 +10,7 @@ export async function GET(request: Request) {
   }
   try {
     const product = await findProductByLink(link as string);
+
     return NextResponse.json(product);
   } catch (error) {
     return NextResponse.json(error);
