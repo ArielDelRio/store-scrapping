@@ -23,6 +23,7 @@
     "react-dom": "18.2.0",
     "react-feather": "^2.0.10",
     "react-json-tree": "^0.18.0",
+    "react-use-cart": "^1.13.0",
     "store-api-controller": "workspace:*",
     "typescript": "5.1.6"
   },

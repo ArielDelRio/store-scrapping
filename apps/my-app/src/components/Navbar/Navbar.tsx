@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -7,9 +6,27 @@ import {
   NavbarItem,
   Button,
 } from "@nextui-org/react";
-import { SignInButton } from "../AuthButtons/AuthButtons";
+import { signIn, useSession } from "next-auth/react";
+import AuthMenu from "../AuthMenu/AuthMenu";
+import { ShoppingCartIcon } from "@/icons";
+import { useCart } from "react-use-cart";
 
 function NavBar() {
+  const { data: session, status } = useSession();
+
+  const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem } =
+    useCart();
+
+  const handleOpenCart = () => {
+    console.log({
+      isEmpty,
+      totalUniqueItems,
+      items,
+      updateItemQuantity,
+      removeItem,
+    });
+  };
+
   return (
     <Navbar className="bg-transparent">
       <NavbarBrand>
@@ -33,16 +50,25 @@ function NavBar() {
           </Link>
         </NavbarItem>
       </NavbarContent> */}
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <SignInButton />
-        </NavbarItem>
-        <NavbarItem>
-          <Button color="primary" variant="ghost">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
+
+      {status === "unauthenticated" && (
+        <NavbarContent justify="end">
+          <NavbarItem className="hidden lg:flex">
+            <Button color="primary" variant="solid" onClick={() => signIn()}>
+              Login
+            </Button>
+          </NavbarItem>
+          <NavbarItem>
+            <Button color="primary" variant="ghost">
+              Sign Up
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+      )}
+      {status === "authenticated" && <AuthMenu user={session.user!} />}
+      <Button onClick={handleOpenCart} isIconOnly color="primary">
+        <ShoppingCartIcon />
+      </Button>
     </Navbar>
   );
 }

@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -59,6 +55,9 @@ importers:
       react-json-tree:
         specifier: ^0.18.0
         version: 0.18.0(@types/react@18.2.17)(react@18.2.0)
+      react-use-cart:
+        specifier: ^1.13.0
+        version: 1.13.0(react@18.2.0)
       store-api-controller:
         specifier: workspace:*
         version: link:../../packages/store-api-controller
@@ -4779,6 +4778,15 @@ packages:
       - '@types/react'
     dev: false
 
+  /react-use-cart@1.13.0(react@18.2.0):
+    resolution: {integrity: sha512-V3jrNOgBXxTn/RWh1HCEdrQk/jx2xCixdkX1c7Vyl4zxEf9jOuniUnjZSTALO7rQ5226onqmvXxKz1eu0Yz6Iw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -5665,3 +5673,7 @@ packages:
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

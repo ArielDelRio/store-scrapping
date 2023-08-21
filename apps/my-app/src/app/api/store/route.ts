@@ -1,10 +1,7 @@
-import { getSession } from "next-auth/react";
 import { NextResponse } from "next/server";
 import { findProductByLink } from "store-api-controller";
 
 export async function GET(request: Request) {
-  const session = await getSession();
-
   const { searchParams } = new URL(request.url);
   const link = searchParams.get("link");
 
