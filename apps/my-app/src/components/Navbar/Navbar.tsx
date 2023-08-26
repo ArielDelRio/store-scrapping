@@ -4,18 +4,18 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
-  Input,
   DropdownItem,
   DropdownTrigger,
   Dropdown,
   DropdownMenu,
   Avatar,
   Button,
+  Badge,
 } from "@nextui-org/react";
-import { AcmeLogo, SearchIcon, ShoppingCartIcon } from "../../icons";
+import { AcmeLogo, ShoppingCartIcon } from "../../icons";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useCart } from "react-use-cart";
+import SearchInput from "../SearchInput/SearchInput";
 
 function NavBar() {
   const { data: session, status } = useSession();
@@ -42,19 +42,7 @@ function NavBar() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent as="div" className="items-center w-1/2" justify="center">
-        <Input
-          classNames={{
-            base: "max-w-full h-10",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper:
-              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
-          }}
-          placeholder="Paste a Shein URL to get product data"
-          size="sm"
-          endContent={<SearchIcon size={18} />}
-          type="search"
-        />
+        <SearchInput />
       </NavbarContent>
       <NavbarContent justify="end">
         {status === "authenticated" ? (
@@ -115,13 +103,20 @@ function NavBar() {
             </NavbarItem>
           </>
         )}
-        <Button
-          onClick={handleOpenCart}
-          isIconOnly
-          className="rounded-md border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-900 text-black transition-colors dark:text-white"
+        <Badge
+          content={totalUniqueItems}
+          color="primary"
+          variant="solid"
+          shape="rectangle"
         >
-          <ShoppingCartIcon />
-        </Button>
+          <Button
+            onClick={handleOpenCart}
+            isIconOnly
+            className="rounded-md border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-900 text-black transition-colors dark:text-white"
+          >
+            <ShoppingCartIcon />
+          </Button>
+        </Badge>
       </NavbarContent>
     </Navbar>
   );

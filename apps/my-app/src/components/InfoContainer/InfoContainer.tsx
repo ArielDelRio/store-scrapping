@@ -46,7 +46,7 @@ const InfoContainer = ({ loading, children }: InfoContainerProps) => {
           </div>
         </div>
       ) : (
-        children
+        <div>{children}</div>
       )}
     </div>
   );

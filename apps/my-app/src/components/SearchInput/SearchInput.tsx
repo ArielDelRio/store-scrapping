@@ -1,29 +1,35 @@
 "use client";
-import { useRef } from "react";
-import "./SearchInput.css";
+import { Input } from "@nextui-org/react";
+import { SearchIcon } from "@/icons";
+import { useProductsStore } from "@/store/products";
 
-interface SearchInputProps {
-  onSearch: (toSearch: string | undefined) => void;
-}
+const SearchInput = () => {
+  const handleSearch = useProductsStore((state) => state.search);
 
-const SearchInput = ({ onSearch }: SearchInputProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const searchValue = e.currentTarget.value;
+      const urlRegex = /(https?:\/\/[^\s]+)/;
+      const extractedUrl = searchValue.match(urlRegex)?.[0]!;
+      handleSearch(extractedUrl);
+    }
+  };
 
   return (
-    <div className="lg:w-6/12 md:w-12/12 min-h-20 flex w-full">
-      <input
-        ref={inputRef}
-        className="search-input w-full"
-        type={"text"}
-        placeholder="Paste a Shein URL to get product data"
-      />
-      <button
-        className="search-button"
-        onClick={() => onSearch(inputRef.current?.value)}
-      >
-        Search
-      </button>
-    </div>
+    <Input
+      classNames={{
+        base: "max-w-full h-10",
+        mainWrapper: "h-full",
+        input: "text-small",
+        inputWrapper:
+          "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+      }}
+      placeholder="Paste a Shein URL to get product data"
+      size="sm"
+      endContent={<SearchIcon size={18} />}
+      type="search"
+      onKeyDown={handleKeyDown}
+    />
   );
 };
 
