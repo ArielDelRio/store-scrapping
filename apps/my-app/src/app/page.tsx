@@ -8,7 +8,7 @@ import { Product } from "store-api-controller/dist/types";
 
 export default function Home() {
   const [product, setProduct] = useState<Product>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (search: string | undefined) => {
     if (!search) return;
@@ -25,20 +25,9 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen py-24 px-4">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "1em",
-        }}
-      >
-        <SearchInput onSearch={handleSearch} />
-        <InfoContainer loading={loading}>
-          <CardProduct product={product} />
-        </InfoContainer>
-      </div>
+    <main className="min-h-screen px-4 flex flex-col items-center gap-1">
+      {/* <SearchInput onSearch={handleSearch} /> */}
+      <CardProduct product={product} />
     </main>
   );
 }

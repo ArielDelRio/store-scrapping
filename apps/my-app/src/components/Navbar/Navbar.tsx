@@ -28,9 +28,8 @@ function NavBar() {
   };
 
   return (
-    <Navbar className="bg-transparent">
+    <Navbar className="bg-transparent" maxWidth="full">
       <NavbarBrand>
-        {/* <AcmeLogo /> */}
         <p className="font-bold text-inherit">STORE SCRAPPING</p>
       </NavbarBrand>
       {/* <NavbarContent className="hidden sm:flex gap-4" justify="center">

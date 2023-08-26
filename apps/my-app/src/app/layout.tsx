@@ -1,7 +1,9 @@
+"use client";
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import NavBar from "@/components/Navbar/Navbar";
+import NavBar from "@/components/Navbar/Navbar_";
 import { AuthProvider, UIProvider, CartProvider } from "../providers";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -17,7 +19,9 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body
+          className={`${inter.className} bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white`}
+        >
           <UIProvider>
             <CartProvider>
               <NavBar />
