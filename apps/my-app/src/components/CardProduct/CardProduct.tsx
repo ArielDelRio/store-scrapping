@@ -49,10 +49,7 @@ const CardProduct = ({ product }: CardProductProps) => {
       </div>
       <div>
         <div className="mb-2">
-          <span
-            className="p-2 bg-zinc-700 rounded overflow-hidden inline-block"
-            style={{ whiteSpace: "normal" }}
-          >
+          <span className="p-2 bg-zinc-700 rounded overflow-hidden inline-block">
             {mappedProduct.name}
           </span>
         </div>
@@ -64,10 +61,7 @@ const CardProduct = ({ product }: CardProductProps) => {
 
         <div className="mb-2">
           {mappedProduct.measurements && (
-            <span
-              className="p-2 bg-zinc-700 rounded overflow-hidden inline-block"
-              style={{ whiteSpace: "normal" }}
-            >
+            <span className="p-2 bg-zinc-700 rounded overflow-hidden inline-block">
               {mappedProduct.measurements.map((means: any) => (
                 <span key={means.attrNameKey} className=" p-2 bg-zinc-700 ">
                   {means.attrNameKey}: {means.attrNameValue}
@@ -116,7 +110,7 @@ const CardProduct = ({ product }: CardProductProps) => {
           <span className=" p-2 bg-zinc-700 rounded  mr-4">
             Sizes:{" "}
             {mappedProduct.sizes[0].sku_sale_attr[0] ? (
-              <select className="text-black">
+              <select className="text-black" title="sizes">
                 {mappedProduct.sizes.map(
                   (size: any) =>
                     size.sku_sale_attr[0].attr_value_name && (
@@ -136,6 +130,7 @@ const CardProduct = ({ product }: CardProductProps) => {
           <span className=" p-2 bg-zinc-700 rounded">
             Quantity to buy:{" "}
             <input
+              placeholder="1"
               type="number"
               defaultValue={1}
               className="rounded p-1 w-10 text-black"

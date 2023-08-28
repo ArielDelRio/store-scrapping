@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -9,18 +8,22 @@ import {
   DropdownTrigger,
   Dropdown,
   DropdownMenu,
-  Avatar,
   Button,
   Badge,
+  Avatar,
 } from "@nextui-org/react";
 import { AcmeLogo, ShoppingCartIcon } from "../../icons";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { useCart } from "react-use-cart";
 import SearchInput from "../SearchInput/SearchInput";
+import {
+  User,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import { Database } from "@/types/database.types";
+import { useRouter } from "next/navigation";
 
-function NavBar() {
-  const { data: session, status } = useSession();
-
+function NavBar({ user }: { user: User | null }) {
+  const router = useRouter();
   const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem } =
     useCart();
 
@@ -32,6 +35,13 @@ function NavBar() {
       updateItemQuantity,
       removeItem,
     });
+  };
+
+  const supabase = createClientComponentClient<Database>();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
   };
 
   return (
@@ -46,7 +56,7 @@ function NavBar() {
         <SearchInput />
       </NavbarContent>
       <NavbarContent justify="end">
-        {status === "authenticated" ? (
+        {user?.aud === "authenticated" ? (
           <Dropdown
             placement="bottom-end"
             className="dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700"
@@ -57,52 +67,39 @@ function NavBar() {
                 as="button"
                 className="transition-transform"
                 color="secondary"
-                name={session.user?.name ?? ""}
+                name={user?.email ?? ""}
                 size="sm"
-                src={session.user?.image ?? ""}
+                src={user?.user_metadata?.avatar_url ?? ""}
                 classNames={{
                   name: "text-default-600",
                 }}
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-              <DropdownItem key="profile" className="h-14 gap-2">
-                <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">{session.user?.name}</p>
-              </DropdownItem>
-              <DropdownItem key="settings">My Settings</DropdownItem>
-              <DropdownItem key="team_settings">Team Settings</DropdownItem>
-              <DropdownItem key="analytics">Analytics</DropdownItem>
-              <DropdownItem key="system">System</DropdownItem>
-              <DropdownItem key="configurations">Configurations</DropdownItem>
-              <DropdownItem key="help_and_feedback">
-                Help & Feedback
-              </DropdownItem>
               <DropdownItem
-                key="logout"
-                color="danger"
-                onClick={() => signOut()}
+                key="profile"
+                className="h-14 gap-2"
+                textValue={`Signed in as ${user.email}`}
               >
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">{user.email}</p>
+              </DropdownItem>
+              <DropdownItem key="logout" color="danger" onClick={handleSignOut}>
                 Log Out
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
         ) : (
-          <>
-            <NavbarItem className="hidden lg:flex">
-              <Button variant="solid" onClick={() => signIn()}>
-                Login
-              </Button>
-            </NavbarItem>
-            <NavbarItem>
-              <Button
-                className="text-white hover:text-neutral-700"
-                variant="ghost"
-              >
-                Sign Up
-              </Button>
-            </NavbarItem>
-          </>
+          <NavbarItem className="hidden lg:flex">
+            <Button
+              variant="ghost"
+              className="text-white hover:text-neutral-700"
+              as={"a"}
+              href="/auth"
+            >
+              Login
+            </Button>
+          </NavbarItem>
         )}
         <Badge
           content={totalUniqueItems}

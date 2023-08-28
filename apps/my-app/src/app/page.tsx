@@ -1,23 +1,22 @@
-"use client";
-import CardProduct from "@/components/CardProduct/CardProduct";
-import { useProductsStore } from "@/store/products";
-import { Spinner } from "@nextui-org/react";
+import NavBar from "@/components/Navbar/Navbar";
+import HomePage from "@/components/pages/home/home";
+import { Database } from "@/types/database.types";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-export default function Home() {
-  const { product, fetching } = useProductsStore((state) => ({
-    product: state.product,
-    fetching: state.fetching,
-  }));
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const supabase = createServerComponentClient<Database>({ cookies });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
-    <main className="min-h-screen px-4 flex flex-col items-center gap-1">
-      <section>
-        {fetching ? (
-          <Spinner size="lg" className="translate-y-[30vh]" />
-        ) : (
-          <CardProduct product={product} />
-        )}
-      </section>
-    </main>
+    <>
+      <NavBar user={user} />
+      <HomePage />
+    </>
   );
 }
