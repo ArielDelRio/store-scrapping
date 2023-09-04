@@ -18,12 +18,7 @@ export const mapProductByStore = (
         category: product.cate_name,
         sizes: product.multiLevelSaleAttribute.sku_list,
         measurements:
-          product.multiLevelSaleAttribute.skc_sale_attr[0] &&
-          product.multiLevelSaleAttribute.skc_sale_attr[0].attr_value_list[0]
-            .attrDescPopUp
-            ? product.multiLevelSaleAttribute.skc_sale_attr[0]
-                .attr_value_list[0].attrDescPopUp[0].bindAttrData
-            : null,
+          product.multiLevelSaleAttribute.skc_sale_attr[0]?.attr_value_list,
         color: product.productDetails[0].attr_value,
         allColors: product.mainSaleAttribute.info,
         productDetails: product.productDetails,

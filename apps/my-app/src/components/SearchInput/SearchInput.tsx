@@ -11,7 +11,6 @@ const SearchInput = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const searchValue = ref.current?.value!;
-      console.log({ searchValue });
       if (!searchValue) return;
       const urlRegex = /(https?:\/\/[^\s]+)/;
       const extractedUrl = searchValue.match(urlRegex)?.[0]!;
@@ -21,7 +20,6 @@ const SearchInput = () => {
 
   const handleClick = () => {
     const searchValue = ref.current?.value!;
-    console.log({ searchValue });
     if (!searchValue) return;
     const urlRegex = /(https?:\/\/[^\s]+)/;
     const extractedUrl = searchValue.match(urlRegex)?.[0]!;
