@@ -23,7 +23,7 @@ const AuthUI = () => {
   console.log({ pathname });
   return (
     <main className="min-h-screen grid place-content-center">
-      <Card className="w-[30vw] dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
+      <Card className="w-[80vw] md:w-[30vw] dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
         <CardBody>
           <Auth
             supabaseClient={supabase}

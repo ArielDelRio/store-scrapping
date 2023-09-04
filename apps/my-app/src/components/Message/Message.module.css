@@ -1,0 +1,21 @@
+@keyframes grayscaleAnimation {
+  0% {
+    filter: grayscale(0%) sepia(0%); /* Start with no grayscale */
+  }
+  25% {
+    filter: grayscale(100%) sepia(0%); /* End with no sepia */
+  }
+  50% {
+    filter: grayscale(100%) sepia(100%); /* End with full sepia */
+  }
+  75% {
+    filter: grayscale(0%) sepia(100%); /* End with no grayscale */
+  }
+  100% {
+    filter: grayscale(0%) sepia(0%); /* End with no sepia */
+  }
+}
+
+.animate_grayscale {
+  animation: grayscaleAnimation 10s ease-in-out forwards infinite alternate;
+}

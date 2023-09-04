@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { UIProvider, CartProvider } from "../providers";
+import NavbarServer from "@/components/Navbar/Navbar.server";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Develop (store)",
@@ -19,7 +20,9 @@ export default function RootLayout({
         className={`${inter.className} bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white`}
       >
         <UIProvider>
-          <CartProvider>{children}</CartProvider>
+          <CartProvider>
+            <main className="min-h-screen">{children}</main>
+          </CartProvider>
         </UIProvider>
       </body>
     </html>

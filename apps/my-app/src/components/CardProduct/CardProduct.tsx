@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Carousel from "../Carousel/Carousel";
 import "./CardProduct.css";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Product } from "store-api-controller/src/types";
 import { mapProductByStore } from "@/utils/mapProductByStore";
 import { useCart } from "react-use-cart";
@@ -15,130 +15,102 @@ const CardProduct = ({ product }: CardProductProps) => {
   const { addItem } = useCart();
   const mappedProduct = useMemo(() => mapProductByStore(product), [product]);
 
+  const [selectedSize, setSelectedSize] = useState(0);
+
   if (!mappedProduct) return null;
 
   return (
-    <div className="flex mx-auto gap-4">
-      <div className="flex flex-col content-img p-2 bg-zinc-700 rounded">
-        <Carousel>
-          {mappedProduct.images.map((image: any) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={image.origin_image}
-              className="cover-img h-full rounded "
-              src={image.origin_image}
-              // width={100}
-              // height={100}
-              alt={image.alt}
-            />
-          ))}
-        </Carousel>
-        <div className="my-6">
-          <span className=" p-2 bg-zinc-700 rounded text-4xl">
-            {mappedProduct.retailPriceWithSymbol}
-          </span>
+    <>
+      <article className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
+        {/* Carousel */}
+        <div className="h-full w-full basis-full lg:basis-4/6">
+          <Carousel images={mappedProduct?.images} />
         </div>
-        <button
-          onClick={() =>
-            addItem({ price: +mappedProduct.salePrice, ...mappedProduct }, 1)
-          }
-          className=" p-2 bg-emerald-800 hover:bg-green-400 transition duration-300 rounded"
-        >
-          + Add to cart
-        </button>
-      </div>
-      <div>
-        <div className="mb-2">
-          <span className="p-2 bg-zinc-700 rounded overflow-hidden inline-block">
-            {mappedProduct.name}
-          </span>
-        </div>
-        <div className="mb-5">
-          <span className=" p-2 bg-zinc-700 rounded">
-            Category: {mappedProduct.category}
-          </span>
-        </div>
+        {/* Product Info */}
+        <div className="basis-full lg:basis-2/6">
+          {/* Product Name and Price */}
+          <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+            <h1 className="mb-2 text-lg font-medium">{mappedProduct.name}</h1>
+            <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
+              <p>
+                {mappedProduct.retailPriceWithSymbol}
+                <span className="ml-1 inline">USD</span>
+              </p>
+            </div>
+          </div>
 
-        <div className="mb-2">
-          {mappedProduct.measurements && (
-            <span className="p-2 bg-zinc-700 rounded overflow-hidden inline-block">
-              {mappedProduct.measurements.map((means: any) => (
-                <span key={means.attrNameKey} className=" p-2 bg-zinc-700 ">
-                  {means.attrNameKey}: {means.attrNameValue}
-                </span>
-              ))}
+          {/* Category Product */}
+          <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+            <p className="mb-4 text-sm uppercase tracking-wide font-bold">
+              Category
+            </p>
+            <span className="leading-7 dark:text-gray-300 text-sm">
+              {mappedProduct.category}
             </span>
-          )}
-        </div>
-        <div className="mb-5">
-          <span className=" p-2 bg-zinc-700 rounded">
-            Color: {mappedProduct.color}
-            <span
-              style={{ backgroundColor: mappedProduct.color }}
-              className="color-box py-1 px-3.5 ml-2 rounded-full"
-            ></span>
-          </span>
-        </div>
-        {/* <div className="mb-5">
-          <span className=" p-2 bg-zinc-700 rounded">
-            Others Colors:
-            {mappedProduct.allColors.map(
-              (color: any) =>
-                color.attr_value != mappedProduct.color && (
-                  <span
-                    key={color.attr_value}
-                    style={{ backgroundColor: color.attr_value }}
-                    className="color-box py-1 px-3.5 ml-2 rounded-full"
-                  ></span>
-                )
-            )}
-            {mappedProduct.allColors.length === 0 && <span>None</span>}
-          </span>
-        </div> */}
-        {mappedProduct.productDetails.map(
-          (prod: any) =>
-            prod.attr_name != "Color" && (
-              <div key={prod.attr_name} className="mb-5">
-                <span className=" p-2 bg-zinc-700 rounded">
-                  {prod.attr_name}: {prod.attr_value}
-                </span>
-              </div>
-            )
-        )}
+          </div>
 
-        <div className="mb-5">
-          <span className=" p-2 bg-zinc-700 rounded  mr-4">
-            Sizes:{" "}
-            {mappedProduct.sizes[0].sku_sale_attr[0] ? (
-              <select className="text-black" title="sizes">
-                {mappedProduct.sizes.map(
-                  (size: any) =>
-                    size.sku_sale_attr[0].attr_value_name && (
-                      <option
-                        key={size.sku_sale_attr[0].attr_value_name}
-                        className="text-black"
-                      >
-                        {size.sku_sale_attr[0].attr_value_name}
-                      </option>
-                    )
-                )}
-              </select>
-            ) : (
-              <span className=" p-2 bg-zinc-700 rounded">One Size</span>
+          {/* Product sizes */}
+          <dl className="mb-6">
+            <dt className="mb-4 text-sm uppercase tracking-wide font-bold">
+              Size
+            </dt>
+            <dd className="flex flex-wrap gap-3">
+              {mappedProduct.sizes.map((size: any, index) => (
+                <button
+                  key={size.sku_sale_attr[0].attr_value_name}
+                  onClick={() => setSelectedSize(index)}
+                  className={`border   rounded-full px-3 py-1 text-sm
+                  ${
+                    index === selectedSize
+                      ? "border-blue-600"
+                      : "dark:border-neutral-700"
+                  }
+                  `}
+                >
+                  {size.sku_sale_attr[0].attr_value_name}
+                </button>
+              ))}
+            </dd>
+          </dl>
+
+          <div className="mb-6 border-b pb-6 dark:border-neutral-700">
+            {mappedProduct.measurements && (
+              <span className="flex gap-5 justify-items-start">
+                {mappedProduct.measurements?.[
+                  selectedSize
+                ]?.attrDescPopUp?.[0]?.bindAttrData?.map((means: any) => (
+                  <span key={means.attrNameKey} className="">
+                    <p className="mb-1 text-sm uppercase tracking-wide font-bold">
+                      {means.attrNameKey}
+                    </p>
+                    <span className="leading-7 dark:text-gray-300 text-sm">
+                      {means.attrNameValue}
+                    </span>
+                  </span>
+                ))}
+              </span>
             )}
-          </span>
-          <span className=" p-2 bg-zinc-700 rounded">
-            Quantity to buy:{" "}
-            <input
-              placeholder="1"
-              type="number"
-              defaultValue={1}
-              className="rounded p-1 w-10 text-black"
-            />
-          </span>
+          </div>
+
+          {/* Product colors */}
+          <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+            <p className="mb-4 text-sm uppercase tracking-wide font-bold">
+              Color
+            </p>
+            <span className="leading-7 dark:text-gray-300 text-sm">
+              {mappedProduct.color}
+            </span>
+          </div>
+
+          <button
+            aria-label="Add item to cart"
+            className="relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90"
+          >
+            <span>+ Add to Cart</span>
+          </button>
         </div>
-      </div>
-    </div>
+      </article>
+    </>
   );
 };
 

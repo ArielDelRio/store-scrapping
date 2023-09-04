@@ -1,0 +1,36 @@
+.sideShoppCart {
+  width: 240px;
+  background: #011627;
+  /*background: #bb4f03;*/
+  position: absolute;
+  /* height: fit-content; */
+  padding: 0 30px;
+  left: -100%;
+  transition: all 1s;
+}
+
+.sideShoppCart.active {
+  left: 0;
+}
+/*
+ul {
+  padding: 0;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+ul li a {
+  color: #eaecef;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  padding: 10px 10px;
+  border-radius: 6px;
+}
+
+ul li a:hover,
+ul li a.active {
+  background: #172b4d;
+} */
