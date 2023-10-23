@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.extractDataFromLink = void 0;
+const axios_1 = __importDefault(require("axios"));
 function extractDataFromLink(link) {
     return __awaiter(this, void 0, void 0, function* () {
         const domainRegex = /https?:\/\/([^/]+)\//g;
@@ -41,11 +45,9 @@ exports.extractDataFromLink = extractDataFromLink;
  */
 const getIdFromSheinApiLink = (link) => {
     return new Promise((resolve, reject) => {
-        fetch(link)
-            .then((response) => response.text())
-            .then((data) => {
+        axios_1.default.get(link).then((response) => {
             const shareInfoRegex = /var shareInfo = (\{.*?\});/s;
-            const match = data.match(shareInfoRegex);
+            const match = response.data.match(shareInfoRegex);
             if (match && match[1]) {
                 try {
                     const shareInfoObject = JSON.parse(match[1]);
@@ -58,9 +60,6 @@ const getIdFromSheinApiLink = (link) => {
             else {
                 reject(new Error("shareInfo not found."));
             }
-        })
-            .catch((error) => {
-            reject(error);
         });
     });
 };
