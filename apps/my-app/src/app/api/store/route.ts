@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { findProductByLink } from "store-api-controller";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const link = searchParams.get("link");
+  const { search } = new URL(request.url);
+  const link = search.replace("?link=", "");
 
   if (!link) {
     return NextResponse.json(400);
@@ -13,6 +13,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json(product);
   } catch (error) {
+    console.log({ error });
     return NextResponse.json(error);
   }
 }

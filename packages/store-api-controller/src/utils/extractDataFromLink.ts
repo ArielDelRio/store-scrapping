@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Domains, Store } from "src/types";
 
 export async function extractDataFromLink(link: string): Promise<{
@@ -39,26 +40,20 @@ export async function extractDataFromLink(link: string): Promise<{
  */
 const getIdFromSheinApiLink = (link: string): Promise<string> => {
   return new Promise((resolve, reject) => {
-    fetch(link)
-      .then((response) => response.text())
-      .then((data) => {
-        const shareInfoRegex = /var shareInfo = (\{.*?\});/s;
-        const match = data.match(shareInfoRegex);
+    axios.get(link).then((response) => {
+      const shareInfoRegex = /var shareInfo = (\{.*?\});/s;
+      const match = response.data.match(shareInfoRegex);
+      if (match && match[1]) {
+        try {
+          const shareInfoObject = JSON.parse(match[1]);
 
-        if (match && match[1]) {
-          try {
-            const shareInfoObject = JSON.parse(match[1]);
-
-            resolve(shareInfoObject?.shareId);
-          } catch (error) {
-            reject(new Error("Error parsing shareInfo"));
-          }
-        } else {
-          reject(new Error("shareInfo not found."));
+          resolve(shareInfoObject?.shareId);
+        } catch (error) {
+          reject(new Error("Error parsing shareInfo"));
         }
-      })
-      .catch((error) => {
-        reject(error);
-      });
+      } else {
+        reject(new Error("shareInfo not found."));
+      }
+    });
   });
 };
