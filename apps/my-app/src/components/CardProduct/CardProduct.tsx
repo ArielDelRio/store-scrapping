@@ -6,18 +6,35 @@ import { useMemo, useState } from "react";
 import { Product } from "store-api-controller/src/types";
 import { mapProductByStore } from "@/utils/mapProductByStore";
 import { useCart } from "react-use-cart";
+import { ClientProduct } from "@/types/ClientProduct";
 
 type CardProductProps = {
   product: Product;
 };
 
 const CardProduct = ({ product }: CardProductProps) => {
-  const { addItem } = useCart();
+  const { addItem, items } = useCart();
   const mappedProduct = useMemo(() => mapProductByStore(product), [product]);
 
   const [selectedSize, setSelectedSize] = useState(0);
 
+  console.log({ product });
+
+  const handleAddProduct = (mappedProductToAdd: ClientProduct) => {
+    const productToAdd = {
+      id: mappedProductToAdd.id,
+      name: mappedProductToAdd.name,
+      color: mappedProductToAdd.color,
+      size: mappedProductToAdd.sizes[selectedSize].sku_sale_attr[0]
+        .attr_value_name,
+      price: +mappedProductToAdd.salePrice,
+    };
+    addItem(productToAdd);
+  };
+
   if (!mappedProduct) return null;
+
+  console.log({ items });
 
   return (
     <>
@@ -105,6 +122,7 @@ const CardProduct = ({ product }: CardProductProps) => {
           <button
             aria-label="Add item to cart"
             className="relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90"
+            onClick={() => handleAddProduct(mappedProduct)}
           >
             <span>+ Add to Cart</span>
           </button>

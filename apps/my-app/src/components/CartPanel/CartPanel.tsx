@@ -1,80 +1,30 @@
+"use client";
 import React from "react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem,
-  Button,
-  User,
-} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
+import { useCartPanel } from "@/store/cartPanel";
+import { XMark } from "@/icons";
 
 export default function CartPanel() {
+  const { isOpen, onClose } = useCartPanel();
+
   return (
-    <Dropdown
-      showArrow
-      radius="sm"
-      classNames={{
-        base: "p-0 border-small border-divider bg-background",
-        arrow: "bg-default-200",
-      }}
+    <div
+      id="cart-panel"
+      className={`z-40 fixed top-0 right-0 bottom-0 h-full w-96 border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black transition-transform ${
+        isOpen ? "translate-x-0" : "translate-x-full"
+      }`}
     >
-      <DropdownTrigger>
-        <Button variant="ghost" disableRipple>
-          Open Menu
+      <div className="flex justify-between items-center">
+        <div>Cart Panel</div>
+        <Button
+          isIconOnly
+          onClick={onClose}
+          variant="ghost"
+          className="text-white hover:text-neutral-700"
+        >
+          <XMark />
         </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-        aria-label="Custom item styles"
-        disabledKeys={["profile"]}
-        className="p-3"
-        itemClasses={{
-          base: [
-            "rounded-md",
-            "text-default-500",
-            "transition-opacity",
-            "data-[hover=true]:text-foreground",
-            "data-[hover=true]:bg-default-100",
-            "dark:data-[hover=true]:bg-default-50",
-            "data-[pressed=true]:opacity-70",
-            "data-[focus-visible=true]:ring-default-500",
-          ],
-        }}
-      >
-        <DropdownSection aria-label="Profile & Actions" showDivider>
-          <DropdownItem
-            isReadOnly
-            key="profile"
-            className="h-14 gap-2 opacity-100"
-          >
-            <User
-              name="Junior Garcia"
-              description="@jrgarciadev"
-              classNames={{
-                name: "text-default-600",
-                description: "text-default-500",
-              }}
-              avatarProps={{
-                size: "sm",
-                src: "https://avatars.githubusercontent.com/u/30373425?v=4",
-              }}
-            />
-          </DropdownItem>
-          <DropdownItem key="dashboard">Dashboard</DropdownItem>
-          <DropdownItem key="settings">Settings</DropdownItem>
-        </DropdownSection>
-
-        <DropdownSection aria-label="Preferences" showDivider>
-          <DropdownItem key="quick_search" shortcut="⌘K">
-            Quick search
-          </DropdownItem>
-        </DropdownSection>
-
-        <DropdownSection aria-label="Help & Feedback">
-          <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-          <DropdownItem key="logout">Log Out</DropdownItem>
-        </DropdownSection>
-      </DropdownMenu>
-    </Dropdown>
+      </div>
+    </div>
   );
 }

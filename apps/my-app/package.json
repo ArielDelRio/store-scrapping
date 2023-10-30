@@ -9,32 +9,31 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nextui-org/react": "^2.1.7",
-    "@supabase/auth-helpers-nextjs": "^0.7.4",
-    "@supabase/auth-ui-react": "^0.4.2",
-    "@supabase/auth-ui-shared": "^0.1.6",
-    "@supabase/supabase-js": "^2.33.1",
-    "@types/node": "20.4.5",
-    "@types/react": "18.2.17",
-    "@types/react-dom": "18.2.7",
-    "axios": "^1.4.0",
-    "eslint": "8.46.0",
-    "eslint-config-next": "13.4.12",
-    "framer-motion": "^10.16.1",
-    "next": "^13.4.19",
+    "@nextui-org/react": "^2.1.13",
+    "@supabase/auth-helpers-nextjs": "^0.8.3",
+    "@supabase/auth-ui-react": "^0.4.6",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.38.4",
+    "@types/node": "20.8.9",
+    "@types/react": "18.2.33",
+    "@types/react-dom": "18.2.14",
+    "axios": "^1.6.0",
+    "eslint": "8.52.0",
+    "eslint-config-next": "14.0.0",
+    "framer-motion": "^10.16.4",
+    "next": "^14.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-json-tree": "^0.18.0",
     "react-use-cart": "^1.13.0",
-    "store-api-controller": "workspace:*",
-    "typescript": "5.1.6",
-    "zustand": "^4.4.1"
+    "zustand": "^4.4.4",
+    "store-api-controller": "workspace:*"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.15",
     "encoding": "^0.1.13",
     "postcss": "^8.4.28",
-    "supabase": "^1.88.0",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.5",
+    "supabase": "^1.106.1",
+    "typescript": "5.2.2"
   }
 }

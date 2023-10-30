@@ -23,21 +23,14 @@ import {
 import { Database } from "@/types/database.types";
 import { useRouter } from "next/navigation";
 import UserIcon from "@/icons/user.icon";
+import { useCartPanel } from "@/store/cartPanel";
 
 function NavBar({ user }: { user: User | null }) {
   const router = useRouter();
   const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem } =
     useCart();
 
-  const handleOpenCart = () => {
-    console.log({
-      isEmpty,
-      totalUniqueItems,
-      items,
-      updateItemQuantity,
-      removeItem,
-    });
-  };
+  const { onOpen } = useCartPanel();
 
   const supabase = createClientComponentClient<Database>();
 
@@ -132,7 +125,7 @@ function NavBar({ user }: { user: User | null }) {
             }}
           >
             <Button
-              onClick={handleOpenCart}
+              onClick={onOpen}
               isIconOnly
               className="rounded-md border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-900 text-black transition-colors dark:text-white"
             >
