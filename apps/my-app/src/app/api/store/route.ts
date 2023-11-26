@@ -1,5 +1,6 @@
+import { findProductByLink } from "@/app/package/store-api-controller";
 import { NextResponse } from "next/server";
-import { findProductByLink } from "store-api-controller";
+// import { findProductByLink } from "store-api-controller";
 
 export async function GET(request: Request) {
   const { search } = new URL(request.url);
