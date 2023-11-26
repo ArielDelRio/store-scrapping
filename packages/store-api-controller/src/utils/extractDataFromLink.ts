@@ -16,14 +16,14 @@ export async function extractDataFromLink(link: string): Promise<{
   }
 
   if ((domain as Domains) === "api-shein.shein.com") {
-    const id = await getIdFromSheinApiLink(link);
+    const id = await getIdFromSheinApiLink(decodedLink);
 
     return { id, store: "shein" };
   }
 
   if ((domain as Domains) === "us.shein.com") {
     const idRegex = /-p-(\d+)-cat/g;
-    const idMatch = idRegex.exec(link);
+    const idMatch = idRegex.exec(decodedLink);
 
     const id = idMatch && idMatch[1] ? idMatch[1] : null;
 
