@@ -5,6 +5,7 @@ class ProductService {
     try {
       const response = await axios.get(`/api/store?link=${param}`);
       const data = await response.data;
+      console.log({ data });
       return data;
     } catch (error) {
       console.error(error);

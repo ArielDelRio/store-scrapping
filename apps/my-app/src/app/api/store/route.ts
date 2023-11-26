@@ -13,7 +13,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json(product);
   } catch (error) {
-    console.log({ error });
+    console.log("Error in api/store", { error });
     return NextResponse.json(error);
   }
 }
