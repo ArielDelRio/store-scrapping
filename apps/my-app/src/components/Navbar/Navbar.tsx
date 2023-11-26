@@ -27,8 +27,7 @@ import { useCartPanel } from "@/store/cartPanel";
 
 function NavBar({ user }: { user: User | null }) {
   const router = useRouter();
-  const { isEmpty, totalUniqueItems, items, updateItemQuantity, removeItem } =
-    useCart();
+  const { totalUniqueItems } = useCart();
 
   const { onOpen } = useCartPanel();
 

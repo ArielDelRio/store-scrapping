@@ -1,18 +1,19 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import NavBar from "./Navbar";
+
 import { Database } from "@/types/database.types";
 
 import { cookies } from "next/headers";
+import dynamic from "next/dynamic";
 
-export const dynamic = "force-dynamic";
+const ClientNavbar = dynamic(() => import("./Navbar"), { ssr: false });
 
-const NavbarServer = async () => {
+const Navbar = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return <NavBar user={user} />;
+  return <ClientNavbar user={user} />;
 };
-export default NavbarServer;
+export default Navbar;

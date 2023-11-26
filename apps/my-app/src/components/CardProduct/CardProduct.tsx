@@ -28,13 +28,12 @@ const CardProduct = ({ product }: CardProductProps) => {
       size: mappedProductToAdd.sizes[selectedSize].sku_sale_attr[0]
         .attr_value_name,
       price: +mappedProductToAdd.salePrice,
+      image: mappedProductToAdd.images[0].origin_image,
     };
     addItem(productToAdd);
   };
 
   if (!mappedProduct) return null;
-
-  console.log({ items });
 
   return (
     <>

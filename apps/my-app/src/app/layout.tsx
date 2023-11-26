@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { UIProvider, CartProvider } from "../providers";
-import CartPanel from "@/components/CartPanel/CartPanel";
+import { CartPanel } from "@/components/CartPanel/CartPanel.server";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Develop (store)",
