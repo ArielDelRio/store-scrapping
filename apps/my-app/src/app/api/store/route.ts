@@ -11,6 +11,9 @@ export async function GET(request: Request) {
   try {
     const product = await findProductByLink(link as string);
 
+    console.log({ link });
+    console.log({ product });
+
     return NextResponse.json(product);
   } catch (error) {
     console.log("Error in api/store", { error });
