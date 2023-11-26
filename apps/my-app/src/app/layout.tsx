@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { UIProvider, CartProvider } from "../providers";
 import { CartPanel } from "@/components/CartPanel/CartPanel.server";
+import Navbar from "@/components/Navbar/Navbar.server";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Develop (store)",
@@ -21,6 +22,7 @@ export default function RootLayout({
       >
         <UIProvider>
           <CartProvider>
+            <Navbar />
             <main className="min-h-screen">{children}</main>
             <CartPanel />
           </CartProvider>

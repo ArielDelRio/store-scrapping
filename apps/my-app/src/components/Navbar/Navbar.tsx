@@ -22,9 +22,11 @@ import { useRouter } from "next/navigation";
 import UserIcon from "@/icons/user.icon";
 import { useCartPanel } from "@/store/cartPanel";
 import { User } from "@supabase/supabase-js";
+import { usePathname } from "next/navigation";
 
 function NavBar({ user }: { user: User | null }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { totalUniqueItems } = useCart();
   const { onOpen } = useCartPanel();
 
@@ -37,6 +39,8 @@ function NavBar({ user }: { user: User | null }) {
     await supabase.auth.signOut();
     router.refresh();
   };
+
+  if (pathname === "/auth") return null;
 
   return (
     <Navbar className="bg-transparent" maxWidth="full">
@@ -79,6 +83,15 @@ function NavBar({ user }: { user: User | null }) {
               >
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user.email}</p>
+              </DropdownItem>
+              <DropdownItem
+                key="orders"
+                className="h-14 gap-2"
+                textValue="Orders"
+                as={"a"}
+                href="/orders"
+              >
+                Orders
               </DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={handleSignOut}>
                 Log Out

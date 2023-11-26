@@ -7,6 +7,8 @@ import { Product } from "store-api-controller/src/types";
 import { mapProductByStore } from "@/utils/mapProductByStore";
 import { useCart } from "react-use-cart";
 import { ClientProduct } from "@/types/ClientProduct";
+import { Plus } from "@/icons";
+import { useCartPanel } from "@/store/cartPanel";
 
 type CardProductProps = {
   product: Product;
@@ -14,6 +16,7 @@ type CardProductProps = {
 
 const CardProduct = ({ product }: CardProductProps) => {
   const { addItem } = useCart();
+  const { isOpen, onOpen } = useCartPanel();
   const mappedProduct = useMemo(() => mapProductByStore(product), [product]);
 
   const [selectedSize, setSelectedSize] = useState(0);
@@ -25,10 +28,11 @@ const CardProduct = ({ product }: CardProductProps) => {
       color: mappedProductToAdd.color,
       size: mappedProductToAdd.sizes[selectedSize].sku_sale_attr[0]
         .attr_value_name,
-      price: +mappedProductToAdd.salePrice,
+      price: +mappedProductToAdd.retailPrice,
       image: mappedProductToAdd.images[0].origin_image,
     };
     addItem(productToAdd);
+    if (!isOpen) onOpen();
   };
 
   if (!mappedProduct) return null;
@@ -121,7 +125,10 @@ const CardProduct = ({ product }: CardProductProps) => {
             className="relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90"
             onClick={() => handleAddProduct(mappedProduct)}
           >
-            <span>+ Add to Cart</span>
+            <span className="flex items-center gap-1">
+              <Plus className="h-4 w-4 " />
+              Add to Cart
+            </span>
           </button>
         </div>
       </article>

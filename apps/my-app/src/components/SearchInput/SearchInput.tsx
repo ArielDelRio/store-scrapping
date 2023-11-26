@@ -3,8 +3,10 @@ import { Button, Input } from "@nextui-org/react";
 import { SearchIcon } from "@/icons";
 import { useProductsStore } from "@/store/products";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 const SearchInput = () => {
+  const router = useRouter();
   const handleSearch = useProductsStore((state) => state.search);
   const ref = useRef<HTMLInputElement>(null);
 
@@ -15,6 +17,7 @@ const SearchInput = () => {
       const urlRegex = /(https?:\/\/[^\s]+)/;
       const extractedUrl = searchValue.match(urlRegex)?.[0]!;
       handleSearch(extractedUrl);
+      router.push(`/product`);
     }
   };
 
@@ -24,6 +27,7 @@ const SearchInput = () => {
     const urlRegex = /(https?:\/\/[^\s]+)/;
     const extractedUrl = searchValue.match(urlRegex)?.[0]!;
     handleSearch(extractedUrl);
+    router.push(`/product`);
   };
 
   return (
