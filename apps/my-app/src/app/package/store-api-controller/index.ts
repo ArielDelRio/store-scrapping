@@ -48,15 +48,13 @@ const findProductByLink = async (link: string): Promise<Product> => {
   try {
     const { id, store } = await extractDataFromLink(link);
 
-    console.log({ id, store });
-
     if (!id || !store) {
       throw new Error("Invalid link");
     }
 
     return await getDetailProduct(store, { product_id: id });
   } catch (error) {
-    console.log("Error in findProductByLink", { error });
+    console.log("Error in findProductByLink", { link, error });
     throw new Error(error as string);
   }
 };
