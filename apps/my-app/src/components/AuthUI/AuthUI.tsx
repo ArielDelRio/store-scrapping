@@ -4,12 +4,11 @@ import { Card, CardBody } from "@nextui-org/react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const AuthUI = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const supabase = createClientComponentClient<Database>();
 
   useEffect(() => {
@@ -20,7 +19,6 @@ const AuthUI = () => {
     });
   }, [router, supabase.auth]);
 
-  console.log({ pathname });
   return (
     <main className="min-h-screen grid place-content-center">
       <Card className="w-[80vw] md:w-[30vw] dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">

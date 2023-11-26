@@ -92,9 +92,7 @@ function NavBar({ user }: { user: User | null }) {
               content="Auth"
               showArrow
               classNames={{
-                base: "dark:bg-neutral-700 text-black transition-colors dark:text-white",
-                arrow:
-                  "dark:bg-neutral-700 text-black transition-colors dark:text-white",
+                base: "text-black",
               }}
             >
               <Button
@@ -119,9 +117,7 @@ function NavBar({ user }: { user: User | null }) {
             content="Cart"
             showArrow
             classNames={{
-              base: "dark:bg-neutral-700 text-black transition-colors dark:text-white",
-              arrow:
-                "dark:bg-neutral-700 text-black transition-colors dark:text-white",
+              base: "text-black",
             }}
           >
             <Button

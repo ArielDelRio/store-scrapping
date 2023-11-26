@@ -6,7 +6,7 @@
     "lint": "turbo run lint"
   },
   "devDependencies": {
-    "@turbo/gen": "^1.10.13",
+    "@turbo/gen": "^1.10.16",
     "turbo": "latest"
   },
   "name": "my-turborepo"
