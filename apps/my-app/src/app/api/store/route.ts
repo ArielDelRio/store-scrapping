@@ -1,6 +1,5 @@
-import { findProductByLink } from "@/app/package/store-api-controller";
 import { NextResponse } from "next/server";
-// import { findProductByLink } from "store-api-controller";
+import { findProductByLink } from "store-api-controller";
 
 export async function GET(request: Request) {
   const { search } = new URL(request.url);
@@ -14,7 +13,6 @@ export async function GET(request: Request) {
 
     return NextResponse.json(product);
   } catch (error) {
-    console.log("Error in api/store", { error });
     return NextResponse.json(error);
   }
 }

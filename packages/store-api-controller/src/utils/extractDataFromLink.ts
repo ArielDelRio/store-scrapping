@@ -5,8 +5,10 @@ export async function extractDataFromLink(link: string): Promise<{
   id: string | null;
   store: Store | null;
 }> {
+  const decodedLink = decodeURIComponent(link);
+
   const domainRegex = /https?:\/\/([^/]+)\//g;
-  const domainMatch = domainRegex.exec(link);
+  const domainMatch = domainRegex.exec(decodedLink);
   const domain = domainMatch && domainMatch[1] ? domainMatch[1] : null;
 
   if (!domain) {
