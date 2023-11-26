@@ -13,12 +13,10 @@ type CardProductProps = {
 };
 
 const CardProduct = ({ product }: CardProductProps) => {
-  const { addItem, items } = useCart();
+  const { addItem } = useCart();
   const mappedProduct = useMemo(() => mapProductByStore(product), [product]);
 
   const [selectedSize, setSelectedSize] = useState(0);
-
-  console.log({ product });
 
   const handleAddProduct = (mappedProductToAdd: ClientProduct) => {
     const productToAdd = {

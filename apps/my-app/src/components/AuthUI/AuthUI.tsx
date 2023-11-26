@@ -1,15 +1,19 @@
 "use client";
 import { Database } from "@/types/database.types";
 import { Card, CardBody } from "@nextui-org/react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { createBrowserClient } from "@supabase/ssr";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const AuthUI = () => {
   const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
+
+  const supabase = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   useEffect(() => {
     supabase.auth.onAuthStateChange((_, session) => {

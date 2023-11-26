@@ -16,22 +16,22 @@ import {
 import { AcmeLogo, ShoppingCartIcon } from "../../icons";
 import { useCart } from "react-use-cart";
 import SearchInput from "../SearchInput/SearchInput";
-import {
-  User,
-  createClientComponentClient,
-} from "@supabase/auth-helpers-nextjs";
+import { createBrowserClient } from "@supabase/ssr";
 import { Database } from "@/types/database.types";
 import { useRouter } from "next/navigation";
 import UserIcon from "@/icons/user.icon";
 import { useCartPanel } from "@/store/cartPanel";
+import { User } from "@supabase/supabase-js";
 
 function NavBar({ user }: { user: User | null }) {
   const router = useRouter();
   const { totalUniqueItems } = useCart();
-
   const { onOpen } = useCartPanel();
 
-  const supabase = createClientComponentClient<Database>();
+  const supabase = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();

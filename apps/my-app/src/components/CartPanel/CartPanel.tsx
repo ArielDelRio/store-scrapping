@@ -6,9 +6,9 @@ import { Minus, Plus, XMark } from "@/icons";
 import { useCart } from "react-use-cart";
 import { ShoppingCartIcon } from "@/icons";
 import Image from "next/image";
-import { SupabaseClient, User } from "@supabase/supabase-js";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { User } from "@supabase/supabase-js";
 import { Database } from "@/types/database.types";
+import { createBrowserClient } from "@supabase/ssr";
 
 export default function CartPanel({ user }: { user: User | null }) {
   const { isOpen, onClose } = useCartPanel();
@@ -23,7 +23,11 @@ export default function CartPanel({ user }: { user: User | null }) {
     cartTotal,
     emptyCart,
   } = useCart();
-  const supabase = createClientComponentClient<Database>();
+
+  const supabase = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   const handleCreateOrder = async () => {
     setCreatingOrder(true);
