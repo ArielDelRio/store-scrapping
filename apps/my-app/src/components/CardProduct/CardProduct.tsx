@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { Product } from "store-api-controller/src/types";
 import { mapProductByStore } from "@/utils/mapProductByStore";
 import { useCart } from "react-use-cart";
-import { ClientProduct } from "@/types/ClientProduct";
+import { CartProduct, ClientProduct } from "@/types/ClientProduct";
 import { Plus } from "@/icons";
 import { useCartPanel } from "@/store/cartPanel";
 
@@ -22,7 +22,7 @@ const CardProduct = ({ product }: CardProductProps) => {
   const [selectedSize, setSelectedSize] = useState(0);
 
   const handleAddProduct = (mappedProductToAdd: ClientProduct) => {
-    const productToAdd = {
+    const productToAdd: CartProduct = {
       id: mappedProductToAdd.id,
       name: mappedProductToAdd.name,
       color: mappedProductToAdd.color,

@@ -1,9 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
+import ClientNavbar from "./Navbar";
 
 import { cookies } from "next/headers";
-import dynamic from "next/dynamic";
 
-const ClientNavbar = dynamic(() => import("./Navbar"), { ssr: false });
+// import dynamic from "next/dynamic";
+// const ClientNavbar = dynamic(() => import("./Navbar"), { ssr: false });
 
 const Navbar = async () => {
   const cookieStore = cookies();

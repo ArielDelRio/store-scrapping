@@ -47,14 +47,12 @@ const getDetailProduct = (store, params) => __awaiter(void 0, void 0, void 0, fu
 const findProductByLink = (link) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id, store } = yield (0, extractDataFromLink_1.extractDataFromLink)(link);
-        console.log({ id, store });
         if (!id || !store) {
             throw new Error("Invalid link");
         }
         return yield getDetailProduct(store, { product_id: id });
     }
     catch (error) {
-        console.log("Error in findProductByLink", { error });
         throw new Error(error);
     }
 });

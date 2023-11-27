@@ -17,16 +17,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white`}
-      >
-        <UIProvider>
-          <CartProvider>
-            <Navbar />
-            <main className="min-h-screen">{children}</main>
-            <CartPanel />
-          </CartProvider>
-        </UIProvider>
+      <body className={`${inter.className} `}>
+        <CartProvider>
+          <UIProvider>
+            <main className="dark text-foreground bg-background min-h-screen">
+              <Navbar />
+              {children}
+              <CartPanel />
+            </main>
+          </UIProvider>
+        </CartProvider>
       </body>
     </html>
   );

@@ -20,3 +20,12 @@ export type ClientProduct = {
   allColors: any[];
   productDetails: ProductDetail[];
 };
+
+export type CartProduct = {
+  id: string;
+  name: string;
+  color: string;
+  size: string;
+  price: number;
+  image: string;
+};

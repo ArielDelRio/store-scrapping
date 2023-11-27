@@ -57,10 +57,7 @@ function NavBar({ user }: { user: User | null }) {
       </NavbarContent>
       <NavbarContent justify="end">
         {user?.aud === "authenticated" ? (
-          <Dropdown
-            placement="bottom-end"
-            className="dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700"
-          >
+          <Dropdown placement="bottom-end" className="dark text-white border">
             <DropdownTrigger>
               <Avatar
                 isBordered

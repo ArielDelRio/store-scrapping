@@ -16,19 +16,20 @@ exports.extractDataFromLink = void 0;
 const axios_1 = __importDefault(require("axios"));
 function extractDataFromLink(link) {
     return __awaiter(this, void 0, void 0, function* () {
+        const decodedLink = decodeURIComponent(link);
         const domainRegex = /https?:\/\/([^/]+)\//g;
-        const domainMatch = domainRegex.exec(link);
+        const domainMatch = domainRegex.exec(decodedLink);
         const domain = domainMatch && domainMatch[1] ? domainMatch[1] : null;
         if (!domain) {
             throw new Error("Invalid link");
         }
         if (domain === "api-shein.shein.com") {
-            const id = yield getIdFromSheinApiLink(link);
+            const id = yield getIdFromSheinApiLink(decodedLink);
             return { id, store: "shein" };
         }
         if (domain === "us.shein.com") {
             const idRegex = /-p-(\d+)-cat/g;
-            const idMatch = idRegex.exec(link);
+            const idMatch = idRegex.exec(decodedLink);
             const id = idMatch && idMatch[1] ? idMatch[1] : null;
             return { id, store: "shein" };
         }
