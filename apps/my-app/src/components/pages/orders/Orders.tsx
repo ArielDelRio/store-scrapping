@@ -1,6 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import OrdersTable from "./OrdersTable/OrdersTable";
+import OrdersListsCards from "./OrdersListsCards/OrdersListsCards";
 
 const OrdersPage = async () => {
   const cookieStore = cookies();
@@ -23,9 +23,9 @@ const OrdersPage = async () => {
   const { data: orders, error } = await supabase.from("orders").select("*");
 
   return (
-    <main className="mx-auto max-w-screen-2xl p-4">
+    <main className="md:w-2/3 m-auto p-4">
       <p className="text-2xl font-bold mb-2">My Orders</p>
-      {orders && <OrdersTable orders={orders} />}
+      {orders && <OrdersListsCards orders={orders} />}
     </main>
   );
 };

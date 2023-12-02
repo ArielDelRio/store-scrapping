@@ -28,4 +28,6 @@ export type CartProduct = {
   size: string;
   price: number;
   image: string;
+  itemTotal?: number;
+  quantity?: number;
 };
